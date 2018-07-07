@@ -1,7 +1,7 @@
 class Timer {
 
-    private int start_time;
-    private int current_time;
+    private int startTime;
+    private int currentTime;
     private int i;
     private ObserverValue < Boolean > paused;
     private ObserverValue < Boolean > reset;
@@ -9,8 +9,8 @@ class Timer {
 
 
     public Timer() {
-        start_time = millis();
-        current_time = start_time;
+        startTime = millis();
+        currentTime = startTime;
         i = 0;
         paused = new ObserverValue < Boolean > (true, Type.TOGGLE_PAUSE);
         reset = new ObserverValue < Boolean > (true, Type.RESET);
@@ -39,22 +39,22 @@ class Timer {
 
 
     public int time() {
-        return current_time - start_time;
+        return currentTime - startTime;
     }
 
 
     public void draw() {
-        draw_arc();
-        draw_counter();
+        drawArc();
+        drawCounter();
     }
 
 
-    private void draw_arc() {
+    private void drawArc() {
         if (intervals.isEmpty()) {
             return;
         }
 
-        Interval interval = get_current_interval();
+        Interval interval = getCurrentInterval();
         if (interval.duration() != 0) {
             float ratio = interval.duration() - time();
             ratio /= interval.duration();
@@ -66,7 +66,7 @@ class Timer {
     }
 
 
-    private void draw_counter() {
+    private void drawCounter() {
         fill(255);
         textSize(52);
         text(string(), width / 2 - textWidth("00:00:00") / 2, height / 2 + textAscent() / 3);
@@ -75,10 +75,10 @@ class Timer {
 
     public String string() {
         if (intervals.isEmpty()) {
-            return millis_to_string(0);
+            return millisToString(0);
         }
-        int remaining = get_current_interval().duration() - time();
-        return millis_to_string(remaining);
+        int remaining = getCurrentInterval().duration() - time();
+        return millisToString(remaining);
     }
 
 
@@ -87,26 +87,26 @@ class Timer {
             return;
         }
 
-        int new_time = millis();
+        int newTime = millis();
 
         if (paused.get()) {
-            start_time += new_time - current_time;
+            startTime += newTime - currentTime;
         }
 
-        current_time = new_time;
+        currentTime = newTime;
 
-        Interval interval = get_current_interval();
+        Interval interval = getCurrentInterval();
         if (time() >= interval.duration()) {
             if (interval.alert()) {
-                play_alert();
+                playAlert();
             }
-            start_time = new_time;
+            startTime = newTime;
             i = (i + 1) % intervals.size();
         }
     }
 
 
-    private Interval get_current_interval() {
+    private Interval getCurrentInterval() {
         if (intervals.isEmpty()) {
             return null;
         }
@@ -115,22 +115,22 @@ class Timer {
 
 
     public Interval interval() {
-        return get_current_interval();
+        return getCurrentInterval();
     }
 
 
-    private void play_alert() {
-        if (alert_sound != null) {
-            alert_sound.rewind();
-            alert_sound.play();
+    private void playAlert() {
+        if (alertSound != null) {
+            alertSound.rewind();
+            alertSound.play();
         }
     }
 
 
     public void reset() {
         i = 0;
-        start_time = millis();
-        current_time = start_time;
+        startTime = millis();
+        currentTime = startTime;
     }
 
 
@@ -140,7 +140,7 @@ class Timer {
 }
 
 
-String millis_to_string(int ms) {
+String millisToString(int ms) {
     String s = String.format("%02d:%02d:%02d", ms / 3600000 % 24, ms / 60000 % 60, ms / 1000 % 60);
     return s;
 }

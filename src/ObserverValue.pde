@@ -40,8 +40,8 @@ class ObserverValue < T > implements Observer {
     public void update(Observable o, Object arg) {
         switch (TYPE) {
             case COLOR_RED:
-                if (t instanceof Integer && arg instanceof TextBox) {
-                    TextBox input = (TextBox) arg;
+                if (t instanceof Integer && arg instanceof Textbox) {
+                    Textbox input = (Textbox) arg;
                     int red = int(input.content());
                     if (red >= 0 && red <= 255) {
                         t = (T)(Object) red;
@@ -50,8 +50,8 @@ class ObserverValue < T > implements Observer {
                 }
                 break;
             case COLOR_GREEN:
-                if (t instanceof Integer && arg instanceof TextBox) {
-                    TextBox input = (TextBox) arg;
+                if (t instanceof Integer && arg instanceof Textbox) {
+                    Textbox input = (Textbox) arg;
                     int green = int(input.content());
                     if (green >= 0 && green <= 255) {
                         t = (T)(Object) green;
@@ -60,8 +60,8 @@ class ObserverValue < T > implements Observer {
                 }
                 break;
             case COLOR_BLUE:
-                if (t instanceof Integer && arg instanceof TextBox) {
-                    TextBox input = (TextBox) arg;
+                if (t instanceof Integer && arg instanceof Textbox) {
+                    Textbox input = (Textbox) arg;
                     int blue = int(input.content());
                     if (blue >= 0 && blue <= 255) {
                         t = (T)(Object) blue;
@@ -70,8 +70,8 @@ class ObserverValue < T > implements Observer {
                 }
                 break;
             case TIMER_DURATION:
-                if (t instanceof Integer && arg instanceof TextBox) {
-                    TextBox input = (TextBox) arg;
+                if (t instanceof Integer && arg instanceof Textbox) {
+                    Textbox input = (Textbox) arg;
                     if (match(input.content(), "\\d{2}:\\d{2}:\\d{2}") != null) {
                         int[] time = int(split(input.content(), ':'));
                         t = (T)(Object)(time[0] * 360000 + time[1] * 60000 + time[2] * 1000);
@@ -95,12 +95,12 @@ class ObserverValue < T > implements Observer {
                 break;
             case TOGGLE_ALERT: // todo: better way to do this
                 if (t instanceof Boolean && arg instanceof Button) {
-                    toggle_string((Button) arg, "\u2713", "\u2717");
+                    toggleString((Button) arg, "\u2713", "\u2717");
                 }
                 break;
             case TOGGLE_PAUSE:
                 if (t instanceof Boolean && arg instanceof Button) {
-                    toggle_string((Button) arg, "start", "pause");
+                    toggleString((Button) arg, "start", "pause");
                 }
                 break;
             case RESET:
@@ -117,9 +117,9 @@ class ObserverValue < T > implements Observer {
     }
 
 
-    private void toggle_string(Button btn, String tru, String fls) {
+    private void toggleString(Button btn, String tru, String fls) {
         boolean toggle = (Boolean) t ? false : true;
         t = (T)(Object) toggle;
-        btn.set_text((Boolean) t ? tru : fls);
+        btn.setText((Boolean) t ? tru : fls);
     }
 }

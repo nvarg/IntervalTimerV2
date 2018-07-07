@@ -1,4 +1,4 @@
-class TextBox extends Observable {
+class Textbox extends Observable {
 
     private String text;
     private PVector pos;
@@ -6,7 +6,7 @@ class TextBox extends Observable {
     private boolean active;
 
 
-    public TextBox(float x, float y, float w) {
+    public Textbox(float x, float y, float w) {
         this.text = "";
         this.pos = new PVector(x, y);
         this.w = w;
@@ -28,7 +28,7 @@ class TextBox extends Observable {
     }
 
 
-    public void set_text(String text) {
+    public void setText(String text) {
         this.text = text;
     }
 
@@ -50,13 +50,13 @@ class TextBox extends Observable {
 
 
     public boolean pressed() {
-        boolean x_bounds = mouseX >= pos.x && mouseX <= pos.x + w;
-        boolean y_bounds = mouseY >= pos.y && mouseY <= pos.y + 16;
-        return x_bounds && y_bounds;
+        boolean boundsX = mouseX >= pos.x && mouseX <= pos.x + w;
+        boolean boundsY = mouseY >= pos.y && mouseY <= pos.y + 16;
+        return boundsX && boundsY;
     }
 
 
-    public boolean is_active() {
+    public boolean isActive() {
         return active;
     }
 
@@ -72,10 +72,10 @@ class TextBox extends Observable {
 
 
     public void append(char c) {
-        boolean c_is_numeric = c >= 48 && c <= 58;
-        boolean c_is_lowercase = c >= 97 && c <= 122;
-        boolean c_is_uppercase = c >= 65 && c <= 90;
-        if (c_is_numeric || c_is_lowercase || c_is_uppercase) {
+        boolean cIsNumeric = c >= 48 && c <= 58;
+        boolean cIsLowercase = c >= 97 && c <= 122;
+        boolean cIsUppercase = c >= 65 && c <= 90;
+        if (cIsNumeric || cIsLowercase || cIsUppercase) {
             text += c;
         }
     }

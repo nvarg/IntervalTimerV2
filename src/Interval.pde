@@ -31,44 +31,44 @@ class Interval {
     }
 
 
-    public void set_duration(int duration) {
+    public void setDuration(int duration) {
         this.duration.set(duration);
     }
 
 
-    public void set_rgb(color rgb) {
+    public void setRGB(color rgb) {
         this.red.set(int(red(rgb)));
         this.green.set(int(green(rgb)));
         this.blue.set(int(blue(rgb)));
     }
 
 
-    public void set_alert(Boolean alert) {
+    public void setAlert(Boolean alert) {
         this.alert.set(alert);
     }
 
 
-    protected ObserverValue < Integer > duration_observer() {
+    public ObserverValue < Integer > durationObserver() {
         return duration;
     }
 
 
-    protected ObserverValue < Integer > red_observer() {
+    public ObserverValue < Integer > redObserver() {
         return red;
     }
 
 
-    protected ObserverValue < Integer > green_observer() {
+    public ObserverValue < Integer > greenObserver() {
         return green;
     }
 
 
-    protected ObserverValue < Integer > blue_observer() {
+    public ObserverValue < Integer > blueObserver() {
         return blue;
     }
 
 
-    protected ObserverValue < Boolean > alert_observer() {
+    public ObserverValue < Boolean > alertObserver() {
         return alert;
     }
 }

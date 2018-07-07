@@ -2,7 +2,7 @@ import ddf.minim.*;
 
 Timer timer;
 Menu menu;
-AudioPlayer alert_sound;
+AudioPlayer alertSound;
 
 
 void setup() {
@@ -15,7 +15,7 @@ void setup() {
     menu.addObservers(timer);
 
     Minim minim = new Minim(this);
-    alert_sound = minim.loadFile("alert.mp3");
+    alertSound = minim.loadFile("alert.mp3");
 
     textSize(16);
 }
@@ -32,10 +32,10 @@ void draw() {
 
 
 void mousePressed() {
-    menu.read_mouse_input();
+    menu.readMouseInput();
 }
 
 
 void keyTyped() {
-    menu.read_key(key);
+    menu.readKey(key);
 }

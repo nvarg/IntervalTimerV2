@@ -12,7 +12,7 @@ class Button extends Observable {
     }
 
 
-    public void set_text(String text) {
+    public void setText(String text) {
         this.text = text;
     }
 
@@ -24,7 +24,7 @@ class Button extends Observable {
     }
 
 
-    public void read_input() {
+    public void readInput() {
         if (pressed()) {
             click();
         }
@@ -38,8 +38,8 @@ class Button extends Observable {
 
 
     private boolean pressed() {
-        boolean x_bounds = mouseX >= pos.x && mouseX <= pos.x + textWidth(text);
-        boolean y_bounds = mouseY >= pos.y && mouseY <= pos.y + 16;
-        return x_bounds && y_bounds;
+        boolean boundsX = mouseX >= pos.x && mouseX <= pos.x + textWidth(text);
+        boolean boundsY = mouseY >= pos.y && mouseY <= pos.y + 16;
+        return boundsX && boundsY;
     }
 }

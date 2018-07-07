@@ -1,69 +1,69 @@
 class Menu {
 
-    private ArrayList < TextBox > duration_inputs;
-    private ArrayList < TextBox > red_inputs;
-    private ArrayList < TextBox > green_inputs;
-    private ArrayList < TextBox > blue_inputs;
-    private ArrayList < Button > alert_toggles;
-    private ArrayList < Button > delete_buttons;
+    private ArrayList < Textbox > durationTextboxes;
+    private ArrayList < Textbox > redTextboxes;
+    private ArrayList < Textbox > greenTextboxes;
+    private ArrayList < Textbox > blueTextboxes;
+    private ArrayList < Button > alertButtons;
+    private ArrayList < Button > deleteButtons;
 
-    private TextBox active;
+    private Textbox active;
 
     private ObserverValue < Boolean > open;
-    private Button menu_button;
-    private Button pause_button;
-    private Button reset_button;
-    private Button new_timer_button;
+    private Button menuButton;
+    private Button pauseButton;
+    private Button resetButton;
+    private Button newTimerButton;
 
     public Menu() {
-        duration_inputs = new ArrayList < TextBox > ();
-        red_inputs = new ArrayList < TextBox > ();
-        green_inputs = new ArrayList < TextBox > ();
-        blue_inputs = new ArrayList < TextBox > ();
-        alert_toggles = new ArrayList < Button > ();
-        delete_buttons = new ArrayList < Button > ();
+        durationTextboxes = new ArrayList < Textbox > ();
+        redTextboxes = new ArrayList < Textbox > ();
+        greenTextboxes = new ArrayList < Textbox > ();
+        blueTextboxes = new ArrayList < Textbox > ();
+        alertButtons = new ArrayList < Button > ();
+        deleteButtons = new ArrayList < Button > ();
 
         active = null;
 
         open = new ObserverValue < Boolean > (false, Type.TOGGLE);
-        menu_button = new Button("menu", new PVector(0, 0));
-        menu_button.addObserver(open);
+        menuButton = new Button("menu", new PVector(0, 0));
+        menuButton.addObserver(open);
 
-        pause_button = new Button("start", new PVector(width / 2 + 25, height / 2 + 50));
-        pause_button.addObserver(timer.paused);
+        pauseButton = new Button("start", new PVector(width / 2 + 25, height / 2 + 50));
+        pauseButton.addObserver(timer.paused);
 
-        reset_button = new Button("reset", new PVector(width / 2 - 64, height / 2 + 50));
-        reset_button.addObserver(timer.reset);
+        resetButton = new Button("reset", new PVector(width / 2 - 64, height / 2 + 50));
+        resetButton.addObserver(timer.reset);
     }
 
 
     public void draw() // todo draw everything
     {
         if (open.get()) {
-            ArrayList < TextBox > all_textboxes = all_textboxes();
-            for (int i = 0; i < all_textboxes.size(); i++) {
-                all_textboxes.get(i).draw();
+            ArrayList < Textbox > allTextboxes = allTextboxes();
+            for (int i = 0; i < allTextboxes.size(); i++) {
+                allTextboxes.get(i).draw();
             }
-            for (int i = 0; i < alert_toggles.size(); i++) {
-                alert_toggles.get(i).draw();
+            for (int i = 0; i < alertButtons.size(); i++) {
+                alertButtons.get(i).draw();
             }
-            for (int i = 0; i < delete_buttons.size(); i++) {
-                delete_buttons.get(i).draw();
+            for (int i = 0; i < deleteButtons.size(); i++) {
+                deleteButtons.get(i).draw();
             }
-            new_timer_button.draw();
+            newTimerButton.draw();
         } else {
-            pause_button.draw();
-            reset_button.draw();
+            pauseButton.draw();
+            resetButton.draw();
         }
-        menu_button.draw();
+        menuButton.draw();
     }
 
 
-    public void read_mouse_input() // todo: add buttons
+    public void readMouseInput() // todo: add buttons
     {
         if (open.get()) {
-            ArrayList < TextBox > all_textboxes = all_textboxes();
-            for (TextBox textbox : all_textboxes) {
+            ArrayList < Textbox > allTextboxes = allTextboxes();
+            for (Textbox textbox : allTextboxes) {
                 if (textbox.pressed()) {
                     if (active != null) {
                         active.deactivate();
@@ -72,37 +72,37 @@ class Menu {
                     active = textbox;
                 }
             }
-            ArrayList < Button > all_buttons = all_buttons();
-            for (Button button : all_buttons) {
-                button.read_input();
+            ArrayList < Button > allButtons = allButtons();
+            for (Button button : allButtons) {
+                button.readInput();
             }
-            new_timer_button.read_input();
+            newTimerButton.readInput();
         } else {
-            pause_button.read_input();
-            reset_button.read_input();
+            pauseButton.readInput();
+            resetButton.readInput();
         }
-        menu_button.read_input();
+        menuButton.readInput();
     }
 
 
     protected void deleteObservers() {
-        ArrayList < Observable > all_inputs = new ArrayList < Observable > ();
-        all_inputs.addAll(all_textboxes());
-        all_inputs.addAll(all_buttons());
-        for (Observable obs : all_inputs) {
+        ArrayList < Observable > allInputs = new ArrayList < Observable > ();
+        allInputs.addAll(allTextboxes());
+        allInputs.addAll(allButtons());
+        for (Observable obs : allInputs) {
             obs.deleteObservers();
         }
-        clear_all();
+        clearAll();
     }
 
 
-    private void clear_all() {
-        duration_inputs.clear();
-        red_inputs.clear();
-        green_inputs.clear();
-        blue_inputs.clear();
-        alert_toggles.clear();
-        delete_buttons.clear();
+    private void clearAll() {
+        durationTextboxes.clear();
+        redTextboxes.clear();
+        greenTextboxes.clear();
+        blueTextboxes.clear();
+        alertButtons.clear();
+        deleteButtons.clear();
     }
 
 
@@ -112,47 +112,47 @@ class Menu {
         for (int i = 0; i < timer.size(); i++) {
             Interval interval = timer.get(i);
             PVector pos = new PVector(width - textWidth("00:00:00"), i * 18);
-            float duration_width = textWidth("00:00:00");
+            float durationWidth = textWidth("00:00:00");
 
-            TextBox duration_textbox = new TextBox(pos.x, pos.y, duration_width);
-            duration_textbox.addObserver(interval.duration_observer());
-            duration_textbox.set_text(millis_to_string(interval.duration()));
-            duration_inputs.add(duration_textbox);
+            Textbox durationTextbox = new Textbox(pos.x, pos.y, durationWidth);
+            durationTextbox.addObserver(interval.durationObserver());
+            durationTextbox.setText(millisToString(interval.duration()));
+            durationTextboxes.add(durationTextbox);
 
-            float color_width = textWidth("255");
+            float colorWidth = textWidth("255");
 
-            pos.x -= color_width + 5;
-            TextBox blue_textbox = new TextBox(pos.x, pos.y, color_width);
-            blue_textbox.addObserver(interval.blue_observer());
-            blue_textbox.set_text(str(int(blue(interval.rgb()))));
-            blue_inputs.add(blue_textbox);
+            pos.x -= colorWidth + 5;
+            Textbox blueTextbox = new Textbox(pos.x, pos.y, colorWidth);
+            blueTextbox.addObserver(interval.blueObserver());
+            blueTextbox.setText(str(int(blue(interval.rgb()))));
+            blueTextboxes.add(blueTextbox);
 
-            pos.x -= color_width + 5;
-            TextBox green_textbox = new TextBox(pos.x, pos.y, color_width);
-            green_textbox.addObserver(interval.green_observer());
-            green_textbox.set_text(str(int(green(interval.rgb()))));
-            green_inputs.add(green_textbox);
+            pos.x -= colorWidth + 5;
+            Textbox greenTextbox = new Textbox(pos.x, pos.y, colorWidth);
+            greenTextbox.addObserver(interval.greenObserver());
+            greenTextbox.setText(str(int(green(interval.rgb()))));
+            greenTextboxes.add(greenTextbox);
 
-            pos.x -= color_width + 5;
-            TextBox red_textbox = new TextBox(pos.x, pos.y, color_width);
-            red_textbox.addObserver(interval.red_observer());
-            red_textbox.set_text(str(int(red(interval.rgb()))));
-            red_inputs.add(red_textbox);
-
-            pos.x -= textWidth('0') + 10;
-            Button alert_button = new Button(interval.alert() ? "\u2713" : "\u2717", pos);
-            alert_button.addObserver(interval.alert_observer());
-            alert_toggles.add(alert_button);
+            pos.x -= colorWidth + 5;
+            Textbox redTextbox = new Textbox(pos.x, pos.y, colorWidth);
+            redTextbox.addObserver(interval.redObserver());
+            redTextbox.setText(str(int(red(interval.rgb()))));
+            redTextboxes.add(redTextbox);
 
             pos.x -= textWidth('0') + 10;
-            Button delete_button = new Button("-", pos);
+            Button alertButton = new Button(interval.alert() ? "\u2713" : "\u2717", pos);
+            alertButton.addObserver(interval.alertObserver());
+            alertButtons.add(alertButton);
+
+            pos.x -= textWidth('0') + 10;
+            Button deleteButton = new Button("-", pos);
             ObserverValue < Integer > index = new ObserverValue < Integer > (i, Type.DELETER);
-            delete_button.addObserver(index);
-            delete_buttons.add(delete_button);
+            deleteButton.addObserver(index);
+            deleteButtons.add(deleteButton);
         }
-        new_timer_button = new Button("+", new PVector(width - textWidth('+'), 18 * timer.size()));
+        newTimerButton = new Button("+", new PVector(width - textWidth('+'), 18 * timer.size()));
         ObserverValue < Integer > i = new ObserverValue < Integer > (0, Type.ADD_NEW);
-        new_timer_button.addObserver(i);
+        newTimerButton.addObserver(i);
     }
 
 
@@ -161,7 +161,7 @@ class Menu {
     }
 
 
-    public void read_key(char k) {
+    public void readKey(char k) {
         if (active != null) {
             switch (k) {
                 case RETURN:
@@ -180,20 +180,20 @@ class Menu {
     }
 
 
-    private ArrayList < TextBox > all_textboxes() {
-        ArrayList < TextBox > all_textboxes = new ArrayList < TextBox > ();
-        all_textboxes.addAll(duration_inputs);
-        all_textboxes.addAll(red_inputs);
-        all_textboxes.addAll(green_inputs);
-        all_textboxes.addAll(blue_inputs);
-        return all_textboxes;
+    private ArrayList < Textbox > allTextboxes() {
+        ArrayList < Textbox > allTextboxes = new ArrayList < Textbox > ();
+        allTextboxes.addAll(durationTextboxes);
+        allTextboxes.addAll(redTextboxes);
+        allTextboxes.addAll(greenTextboxes);
+        allTextboxes.addAll(blueTextboxes);
+        return allTextboxes;
     }
 
 
-    private ArrayList < Button > all_buttons() {
-        ArrayList < Button > all_buttons = new ArrayList < Button > ();
-        all_buttons.addAll(alert_toggles);
-        all_buttons.addAll(delete_buttons);
-        return all_buttons;
+    private ArrayList < Button > allButtons() {
+        ArrayList < Button > allButtons = new ArrayList < Button > ();
+        allButtons.addAll(alertButtons);
+        allButtons.addAll(deleteButtons);
+        return allButtons;
     }
 }
