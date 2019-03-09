@@ -26,12 +26,3 @@ The color of each interval is customizable to help differentiate them. Accepts v
 #### duration
 
 The duration follows hh:mm:ss format, however it doesn't bound the numbers as long as they are two digits. It will accept 00:00:90 as 1 minute 30 seconds for example.
-
-
-## How to compile
-
-1. Install [processing](https://processing.org/).
-2. Add the Minim library required for playing sound files.
-3. Create a new sketch.
-4. Simply contents of the src file to the window Note that you may need to drag the 'alert.mp3' file located in data separately, because it won't accept the data folder.
-5. Click the run button or File > Export Application... and follow the export wizard.
